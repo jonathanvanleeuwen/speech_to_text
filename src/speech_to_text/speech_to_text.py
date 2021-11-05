@@ -44,12 +44,14 @@ class SpeechToText:
 
     def from_file(self, filepath: Path) -> None:
         self.done = False
+        logger.info(f"Running speech to text from file: {filepath.resolve()}")
         audio_input = speechsdk.AudioConfig(filename=str(filepath.resolve()))
         self.speech_recognizer = speechsdk.SpeechRecognizer(speech_config=self.speech_config, audio_config=audio_input)
         self._start_recognition()
 
     def from_mic(self) -> None:
         self.done = False
+        logger.info("Running speech to text from microphone!")
         self.speech_recognizer = speechsdk.SpeechRecognizer(speech_config=self.speech_config)
         self._start_recognition()
 
