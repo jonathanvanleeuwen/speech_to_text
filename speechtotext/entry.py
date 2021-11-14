@@ -1,7 +1,7 @@
 import logging
 from typing import Dict
 
-from src.speech_to_text.speech_to_text import SpeechToText
+from speechtotext.speech_to_text.speech_to_text import SpeechToText
 
 logger = logging.getLogger()
 

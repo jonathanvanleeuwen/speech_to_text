@@ -1,6 +1,12 @@
 # Introduction <!-- omit in toc -->
 This is a code repo for interfacing with the azure speech to text SDK
 - [TODO](#todo)
+- [Notes](#notes)
+- [Usage](#usage)
+  - [in code:](#in-code)
+  - [from cmd](#from-cmd)
+  - [env variable when running from command line](#env-variable-when-running-from-command-line)
+  - [## KWARGS for SpeechToText](#-kwargs-for-speechtotext)
 - [Description](#description)
 - [Install code](#install-code)
 - [How to use the code](#how-to-use-the-code)
@@ -9,7 +15,38 @@ This is a code repo for interfacing with the azure speech to text SDK
 - [Folder structure](#folder-structure)
 
 # TODO
-1. UPDATE README
+- UPDATE README
+    - Write readme with instructions and user guide
+    - Describe install process
+- Packaging from: https://packaging.python.org/tutorials/packaging-projects/
+- Handle defaults properly in run and in class
+- Change max duration interface
+
+# Notes
+pip install -e . Changed code will be automatically imported
+python -m build (static build)
+pip install <path-to-wheel-file> - Instals build file
+
+# Usage
+## in code:
+from speechtotext import SpeechToText
+speech2txt = SpeechToText(subscription = "AZURE-COGNITIVE_SERVICES-SPEECH-KEY")
+speech2txt.from_mic()
+speech2txt.from_file("FILEPATH")
+
+## from cmd
+install
+activate env
+python speechtotext -h
+python speechtotext run -h
+python speechtotext run --option1 "value" --option2 "value" etc
+
+## env variable when running from command line
+    .env file
+    or set (windows)
+    or export (mac)
+## KWARGS for SpeechToText
+--
 
 
 # Description
@@ -60,9 +97,9 @@ Use the command line
     * `python main.py version`
     * `python main.py version -h`
 3. Run the main entry point
-    * `python main.py entry 5`
-    * `python main.py entry 5 --y 10`
-    * `python main.py entry -h`
+    * `python main.py run 5`
+    * `python main.py run 5 --y 10`
+    * `python main.py run -h`
 
 ## How to run tests
 Use the command line

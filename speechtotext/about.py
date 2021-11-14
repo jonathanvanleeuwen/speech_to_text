@@ -1,7 +1,7 @@
-__title__ = "Speech to text"
-__summary__ = "Speech to text interface for Azure speech to text"
+__title__ = "speech-to-text-az-interface"
+__description__ = "A simple speech to text interface for Azure speech to text"
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 __author__ = "Jonathan van Leeuwen"
 __email__ = "jonathan89j@hotmail.com"
@@ -9,6 +9,7 @@ __email__ = "jonathan89j@hotmail.com"
 __release_notes__ = f"\n{'-'*120}\n".join(
     [
         "0.0.1 - Release notes\nInitial setup",
+        "0.0.2 - Updated format for better packaging",
     ]
 )
 
@@ -25,7 +26,7 @@ def version() -> None:
     print(sepperator)
     print(f"Title:\n\t{__title__}")
     print(sepperator)
-    print(f"Summary:\n\t{__summary__}")
+    print(f"Summary:\n\t{__description__}")
     print(sepperator)
     print(f"Version:\n\t{__version__}")
     print(sepperator)
@@ -33,13 +34,3 @@ def version() -> None:
     print(sepperator)
     print(f"Email:\n\t{__email__}")
     print(sepperator)
-
-
-"""
-https://packaging.python.org/guides/single-sourcing-package-version/
-# In setup.py (if its a package) read and exec the value into a variable
-version = {}
-with open("...sample/version.py") as fp:
-    exec(fp.read(), version)
-# later on we use: version['__version__']
-"""

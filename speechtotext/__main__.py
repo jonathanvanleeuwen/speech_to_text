@@ -7,8 +7,8 @@ from pathlib import Path
 import argh
 from dotenv import load_dotenv
 
-from src.entry import run_code
-from src.about import version
+from speechtotext.entry import run_code
+from speechtotext.about import version
 
 logger = logging.getLogger()
 load_dotenv()
@@ -21,7 +21,7 @@ def config_logger() -> None:
     log_file = Path("template_log.log")
     log_file.unlink(missing_ok=True)
     logging.basicConfig(
-        level=logging.DEBUG,
+        level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
         handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
     )
@@ -31,9 +31,9 @@ def config_logger() -> None:
 @argh.arg("--max_duration", help="The max duration the service will continue before trying to close (seconds)")
 @argh.arg("--out", help="Filepath to .txt file to save results!")
 @argh.arg("--filepath", help="Filepath to .wav file to run speech to text on!")
-def entry(filepath: Path = None, out: Path = None, max_duration: int = None, language: str = "en-US") -> None:
+def run(filepath: Path = None, out: Path = None, max_duration: int = None, language: str = "en-US") -> None:
     """
-    Information about the entry point
+    Run speech to text either on file or from mic
     """
     config_logger()
     start = time.time()
@@ -56,4 +56,4 @@ def entry(filepath: Path = None, out: Path = None, max_duration: int = None, lan
 
 
 if __name__ == "__main__":
-    argh.dispatch_commands([entry, version])
+    argh.dispatch_commands([run, version])
