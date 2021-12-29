@@ -54,7 +54,7 @@ class SpeechToText:
             self.speech_config = speechsdk.SpeechConfig(subscription=self.subscription, region=self.region)
             self.speech_config.speech_recognition_language = kwargs.get("language", "en-US")
             self._initated = True
-        except RuntimeError as e:
+        except (RuntimeError, ValueError) as e:
             logger.error(e)
             logger.error("Unable to connect to Azure service")
             logger.error("".join(traceback.format_exception(type(e), e, e.__traceback__)))
