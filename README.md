@@ -1,7 +1,6 @@
 # Introduction <!-- omit in toc -->
 This is a code repo for interfacing with the azure speech to text SDK
 - [TODO](#todo)
-- [Notes](#notes)
 - [Usage](#usage)
   - [in code:](#in-code)
   - [from cmd](#from-cmd)
@@ -22,10 +21,24 @@ This is a code repo for interfacing with the azure speech to text SDK
 - Handle defaults properly in run and in class
 - Change max duration interface
 
-# Notes
-pip install -e . Changed code will be automatically imported
-python -m build (static build)
-pip install <path-to-wheel-file> - Instals build file
+
+- Build (static)
+  - python -m build
+-Build (dynamic, for dev purposes, imported code updates when code updates)
+    - pip install -e .
+- Install (static)
+  - pip install path_to_whl/speech_to_text_az_interface-0.0.3-py3-none-any.whl
+
+- Uninstall
+  - pip uninstall speech-to-text-az-interface
+- Use (cmd)
+  -  python -m speechtotext -h
+  -  python -m speechtotext version
+  -  python -m speechtotext version -h
+- Use (installed build)
+  - from speechtotext import SpeechToText
+    - speech2txt = SpeechToText(subscription="")
+    - speech2txt.from_mic()
 
 # Usage
 ## in code:
