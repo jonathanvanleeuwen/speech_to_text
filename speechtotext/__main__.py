@@ -8,7 +8,7 @@ import argh
 from dotenv import load_dotenv
 
 from speechtotext.entry import run_code
-from speechtotext.about import version
+from speechtotext import version
 
 logger = logging.getLogger()
 load_dotenv()
