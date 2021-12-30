@@ -1,83 +1,37 @@
 # Introduction <!-- omit in toc -->
 This is a code repo for interfacing with the azure speech to text SDK
-- [TODO](#todo)
-- [Usage](#usage)
-  - [in code:](#in-code)
-  - [from cmd](#from-cmd)
-  - [env variable when running from command line](#env-variable-when-running-from-command-line)
-  - [## KWARGS for SpeechToText](#-kwargs-for-speechtotext)
+
+**Note**
+It requires the user to have an AZURE-COGNITIVE_SERVICES-SPEECH-KEY, if used as a CMD tool, the AZURE-COGNITIVE_SERVICES-SPEECH-KEY needs to be set as an environment variable named `SUBSCRIPTION`. Alternatively it can be defined in a .env file as: `SUBSCRIPTION=AZURE-COGNITIVE_SERVICES-SPEECH-KEY`
+
 - [Description](#description)
 - [Install code](#install-code)
+  - [Install source code](#install-source-code)
+    - [Build your own package if you modify source code](#build-your-own-package-if-you-modify-source-code)
+  - [Install built package](#install-built-package)
 - [How to use the code](#how-to-use-the-code)
-  - [How to run code](#how-to-run-code)
-  - [How to run tests](#how-to-run-tests)
+  - [Set env variable when running from command line](#set-env-variable-when-running-from-command-line)
+  - [How to run code from source code](#how-to-run-code-from-source-code)
+  - [How to use class after package install](#how-to-use-class-after-package-install)
+    - [Run from commandline after package install](#run-from-commandline-after-package-install)
 - [Folder structure](#folder-structure)
-
-# TODO
-- UPDATE README
-    - Write readme with instructions and user guide
-    - Describe install process
-- Packaging from: https://packaging.python.org/tutorials/packaging-projects/
-- Handle defaults properly in run and in class
-- Change max duration interface
-
-
-- Build (static)
-  - python -m build
--Build (dynamic, for dev purposes, imported code updates when code updates)
-    - pip install -e .
-- Install (static)
-  - pip install path_to_whl/speech_to_text_az_interface-0.0.3-py3-none-any.whl
-
-- Uninstall
-  - pip uninstall speech-to-text-az-interface
-- Use (cmd)
-  -  python -m speechtotext -h
-  -  python -m speechtotext version
-  -  python -m speechtotext version -h
-- Use (installed build)
-  - from speechtotext import SpeechToText
-    - speech2txt = SpeechToText(subscription="")
-    - speech2txt.from_mic()
-
-# Usage
-## in code:
-from speechtotext import SpeechToText
-speech2txt = SpeechToText(subscription = "AZURE-COGNITIVE_SERVICES-SPEECH-KEY")
-speech2txt.from_mic()
-speech2txt.from_file("FILEPATH")
-
-## from cmd
-install
-activate env
-python speechtotext -h
-python speechtotext run -h
-python speechtotext run --option1 "value" --option2 "value" etc
-
-## env variable when running from command line
-    .env file
-    or set (windows)
-    or export (mac)
-## KWARGS for SpeechToText
---
 
 
 # Description
-The code does not have functional use.
-However, the template covers:
-1. Code directory layout
-2. Command line interface using "Argh"
-3. Progressbar / Parallel processing using progressbar, "tqdm"
-4. Testing using "pytest"
-5. Requirements file
-6. Documentation
+This code is a wrapper which can be used to interface easily with the azure cognitive services.
+When run, the class outputs to a log and a file.
+It has a class with two main methods.
+1. `SpeechToText.from_file(filepath)` - Transcribes an audio file and writes the output to a file.
+2. `SpeechToText.from_mic()` - Live transcription from your microphone.
 
-Starting with this template should make an initial code repo setup faster and easier.
+It can be installed with the [prebuilt package](#install-built-package) or as [source code](#install-source-code)
+
 
 # Install code
 This guide assumes you are using windows, the instructions should be similar for other operating systems.
 Its assumed that you are using [vscode and have python installed](https://code.visualstudio.com/docs/python/python-tutorial).
 
+## Install source code
 1. Download/clone the code (where this readme is located)
 2. Open vscode and from within vscode open the main folder with the code
 3. Open a new terminal
@@ -94,87 +48,151 @@ Its assumed that you are using [vscode and have python installed](https://code.v
    * **Ensure that you are in the correct directory and using the "[env_name]" environment**
    * Run: `pip install -r requirements.txt`
 6.  Done! you can now move on to the next section on [how to use the code](#how-to-use-the-code)
+* Optionally: -Install code as a dynamic package, for dev purposes, imported code updates when code updates
+    - pip install -e .
+### Build your own package if you modify source code
+In your activated venv, in terminal run
+    - `python -m build`
+
+## Install built package
+1. Download the `dist/speech_to_text_az_interface-[version]-py3-none-any.whl` file.
+2. Make sure your in your virtual env (in terminal) (see instructions for [creating venv](#install-source-code))
+3. In terminal run `pip install path_to_whl/speech_to_text_az_interface-[version]-py3-none-any.whl`
+4. Done! you can now move on to the next section on [how to use the code](#how-to-use-the-code)
+
+Uninstall with: `pip uninstall speech-to-text-az-interface`
 
 # How to use the code
 * Pre-requisites
   1. Ensure that you have followed all the steps to [Install code](#install-code)
   2. Ensure that you have activated the correct virtual environment.
-  3. Ensure that the dependencies in requirements.txt are installed.
-  4. Ensure that you have navigated to the directory containing this code.
+  3. Ensure that the dependencies in requirements.txt are installed (if you are installing source code).
+  4. Ensure that you have navigated to the directory containing this code (if you are installing source code).
+  5. You have a valid and working `AZURE-COGNITIVE_SERVICES-SPEECH-KEY`
+  6. If your running from CMD, the `AZURE-COGNITIVE_SERVICES-SPEECH-KEY` is set as an [environment variable](#set-env-variable-when-running-from-command-line)
 
-## How to run code
-Use the command line
-1. Get help
-    * `python main.py -h`
-2. Get version information
-    * `python main.py version`
-    * `python main.py version -h`
-3. Run the main entry point
-    * `python main.py run 5`
-    * `python main.py run 5 --y 10`
-    * `python main.py run -h`
+## Set env variable when running from command line
+1. Define in a .env file.
+   * Create a .env file in the main directory
+   * Put the `AZURE-COGNITIVE_SERVICES-SPEECH-KEY` in the .env file as follows
+     * `SUBSCRIPTION=AZURE-COGNITIVE_SERVICES-SPEECH-KEY`
+2. Temporarily set the variable in the virtual environment using the terminal
+   * `set SUBSCRIPTION=AZURE-COGNITIVE_SERVICES-SPEECH-KEY` - (Windows)
+   * `export SUBSCRIPTION=AZURE-COGNITIVE_SERVICES-SPEECH-KEY` - (Mac)
 
-## How to run tests
+## How to run code from source code
 Use the command line
-1. Run all tests
-    * `pytest`
-2. Run all tests in specific folder
-    * `pytest tests/unit`
-3. Run all tests in specific test file
-    * `pytest tests/unit/src/test_myprojectcode.py`
-4. Run single specific test in file
-    * `pytest tests/unit/src/test_myprojectcode.py::test_is_even`
+`python speechtotext -h` - Help
+`python speechtotext version` - Print version info
+`python speechtotext run -h` - Help for run options
+`python speechtotext run --option1 "value" --option2 "value"` - etc
+
+## How to use class after package install
+Assuming the code is installed from wheel, you can import the code and use it as follows:
+```
+required kwargs:
+:param subscription: The subscription key to use for the service, str
+
+optional kwargs
+:param region: The region of the service i.e. westeurope (default), str
+:param out: The output file and location to save results i.e. "./default_out.txt" (default), Path
+:param max_duration: The maximum time the recognizer will run, seconds i.e. 3600 (default), Int
+:param language: The language the recognizer will use, i.e. "en-US" (default), str
+:param verbose: logging level to output, default = INFO
+```
+```
+# Import
+from speechtotext import SpeechToText
+
+speech2txt = SpeechToText(subscription=AZURE-COGNITIVE_SERVICES-SPEECH-KEY)
+# To run speech to text from mic
+speech2txt.from_mic()
+
+# To run speech to text from file
+speech2txt.from_file(audio_file_path)
+
+```
+
+### Run from commandline after package install
+`python -m speechtotext -h` - Help
+`python -m speechtotext version` - Print version info
+`python -m speechtotext run -h` - Help for run options
+`python -m speechtotext run --option1 "value" --option2 "value"` - etc
 
 # Folder structure
-Describe the folder structure and file content
 
 + <details>
-    <summary> Template code - The main directory of the template </summary>
+    <summary> Speech to text - The main directory of the code </summary>
 
     + <details>
-        <summary> src - The source code </summary>
+        <summary> speechtotext - The source code </summary>
 
-        * [__ init __.py](/src/__init__.py) - Empty init file
-        * [about.py](/src/about.py) - File with version information and change log
-        * [myprojectcode.py](/src/myprojectcode.py) - The main project code file
-        * [utils.py](/src/utils.py) - Utility functions and methods used by the main
-        </details>
-
-    + <details>
-        <summary> tests - Code for tests </summary>
+        * [__ init __.py](/speechtotext/__init__.py) - init file
+        * [__ main __.py](/speechtotext/__main__.py) - The commandline interface code
+        * [entry.py](/speechtotext/entry.py) - The entry wrapper used by __ main __
 
         + <details>
-            <summary> integration - Code for integration tests </summary>
+            <summary> samples - Contains audio fragments </summary>
 
-            + <details>
-                <summary> src - Integration tests for the code in src </summary>
+            * [__ init __.py](/speechtotext/samples/__init__.py) - init file
+            * audio_files - any audio fragment samples used for testing purposes
 
-                * [__ init __.py](/src/__init__.py) - Empty init file
-                </details>
-
-            * [__ init __.py](/src/__init__.py) - Empty init file
             </details>
 
         + <details>
-            <summary> unit - Code for unit tests </summary>
+            <summary> speech_to_text - Contains source code for the SpeechToText wrapper class </summary>
 
-            + <details>
-                <summary> src - Unit tests for the code in src </summary>
+            * [__ init __.py](/speechtotext/speech_to_text/__init__.py) - init file
+            * [speech_to_text.py](/speechtotext/speech_to_text/speech_to_text.py) - The wrapper class source code
 
-                * [__ init __.py](/src/__init__.py) - Empty init file
-                * [test_myprojectcode.py](/src/test_myprojectcode) - unit tests
-                </details>
-
-            * [__ init __.py](/src/__init__.py) - Empty init file
             </details>
 
-        * [__ init __.py](/src/__init__.py) - Empty init file
-        * [conftest.py](/tests/conftest.py) - File containing pytest fixtures and configurations
+        + <details>
+            <summary> tests - Code for tests </summary>
+
+            + <details>
+                <summary> integration - Code for integration tests </summary>
+
+                + <details>
+                    <summary> speechtotext - Integration tests for the code in speechtotext </summary>
+
+                    * [__ init __.py](/speechtotext/tests/integration/speechtotext/__init__.py) - Empty init file
+                    </details>
+
+                * [__ init __.py](/speechtotext/tests//integration/__init__.py) - Empty init file
+                </details>
+
+            + <details>
+                <summary> unit - Code for unit tests </summary>
+
+                + <details>
+                    <summary> speechtotext - Unit tests for the code in speechtotext </summary>
+
+                    * [__ init __.py](/speechtotext/tests/unit/__init__.py) - Empty init file
+                    * [test_speechtotext.py](/speechtotext/tests/unit/speechtotext/test_speechtotext.py) - unit tests
+                    </details>
+
+                * [__ init __.py](/speechtotext/tests/unit/__init__.py) - Empty init file
+                </details>
+
+            * [__ init __.py](/speechtotext/tests/__init__.py) - Empty init file
+            * [conftest.py](/speechtotext/tests/conftest.py) - File containing pytest fixtures and configurations
+            </details>
         </details>
 
-    * [main.py](/main.py) - The entry point of the code
+    + <details>
+        <summary> dist - The prebuilt wheel packages </summary>
+
+        * speech_to_text_az_interface-[version]-py3-none-any.whl - Built wheel package
+
+        </details>
+
+
+    * [.gitignore](/.gitignore) - The git ignore file
+    * [LICENSE](/LICENSE) - The license file
     * [README.md](/README.md) - The project documentation
     * [requirements.txt](/requirements.txt) - The code dependencies/requirements
-    * [template_log.log](/template_log.log) - The output log of the code
+    * [setup.cfg](/setup.cfg) - The static project setup file
+    * [setup.py](/setup.py) - The dynamic project setup file
 
     </details>

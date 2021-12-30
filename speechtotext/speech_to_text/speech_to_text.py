@@ -28,7 +28,7 @@ class SpeechToText:
     optional kwargs
     :param region: The region of the service i.e. westeurope (default), str
     :param out: The output file and location to save results i.e. "./default_out.txt" (default), Path
-    :param max_duration: The maximum time the recognizer will run, seconds i.e. 60 (default), Int
+    :param max_duration: The maximum time the recognizer will run, seconds i.e. 3600 (default), Int
     :param language: The language the recognizer will use, i.e. "en-US" (default), str
     :param verbose: logging level to output, default = INFO
     """
@@ -41,7 +41,7 @@ class SpeechToText:
         self.verbose = kwargs.get("verbose", "INFO")
         set_logging_level(self.verbose)
         if self.max_duration is None:
-            self.max_duration = 60
+            self.max_duration = 3600
         else:
             self.max_duration = int(self.max_duration)
         if self.out is None:
@@ -65,7 +65,9 @@ class SpeechToText:
         if self._initated:
             logger.info(f"Running speech to text from file: {filepath.resolve()}")
             audio_input = speechsdk.AudioConfig(filename=str(filepath.resolve()))
-            self.speech_recognizer = speechsdk.SpeechRecognizer(speech_config=self.speech_config, audio_config=audio_input)
+            self.speech_recognizer = speechsdk.SpeechRecognizer(
+                speech_config=self.speech_config, audio_config=audio_input
+            )
             self._start_recognition()
         else:
             logger.error("Instance not connected to Azure")

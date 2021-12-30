@@ -34,6 +34,10 @@ def config_logger() -> None:
 def run(filepath: Path = None, out: Path = None, max_duration: int = None, language: str = "en-US") -> None:
     """
     Run speech to text either on file or from mic
+    If no filepath is given, it uses the mic by default.
+    Requires environment variable to be set: SUBSCRIPTION=AZURE-COGNITIVE_SERVICES-SPEECH-KEY
+    - Default max duration is 3600s
+    - Default out is /default_out.txt
     """
     config_logger()
     start = time.time()
